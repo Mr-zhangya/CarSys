@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--**************************spring 基本配置******************************-->
+
+    <!--扫描service、controller-->
+    <context:component-scan base-package="com.demo.carsys"/>
+
+    <!--配置的一个 HikariCP 的数据源 -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/rent_car?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+    <!--事务处理的配置-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--事务的注解驱动-->
+    <tx:annotation-driven />
+
+    <!--**************************spring MVC 基本配置******************************-->
+
+    <!--Spring MVC 的注解驱动-->
+    <mvc:annotation-driven />
+
+    <!--视图解析器配置-->
+    <mvc:view-resolvers>
+        <mvc:jsp prefix="/WEB-INF/page/" suffix=".jsp"/>
+    </mvc:view-resolvers>
+
+    <!--静态资源处理器-->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <!--**************************mybatis 基本配置******************************-->
+
+    <!--配置一个sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!--扫描dao层，生成接口代理实现-->
+    <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.demo.carsys.dao"/>
+    </bean>
+
+
+
+</beans>
