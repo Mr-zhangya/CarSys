@@ -50,7 +50,7 @@
 
     <!--扫描dao层，生成接口代理实现-->
     <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.demo.carsys.dao"/>
+        <property name="basePackage" value="com.demo.carsys.mapper"/>
     </bean>
 
 

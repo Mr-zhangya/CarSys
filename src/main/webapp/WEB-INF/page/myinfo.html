@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>订单管理-车速递</title>
-    <link rel="stylesheet" href="../../../resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../resources/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../../resources/css/mymain.mymain.css">
-    <script type="application/javascript" src="../../../resources/js/jquery-3.3.1.js"></script>
-    <script type="application/javascript" src="../../../resources/js/bootstrap.min.js"></script>
-    <script type="application/javascript" src="../../../resources/layui/layui.js"></script>
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../resources/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../resources/css/mymain.mymain.css">
+    <script type="application/javascript" src="../../resources/js/jquery-3.3.1.js"></script>
+    <script type="application/javascript" src="../../resources/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="../../resources/layui/layui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 </head>
@@ -25,10 +25,10 @@
         </div>
             <div data-v-95ac8d30="" class="header3User right">
                 <i data-v-95ac8d30="" class="iconfont icon-phone"></i>
-            <span data-v-95ac8d30="" class="sp1">400-919-8000</span>
-            <span data-v-95ac8d30="" class="sp2">欢迎您，</span>
-            <span data-v-95ac8d30="" class="sp3"></span>
-        </div>
+                <span data-v-95ac8d30="" class="sp1">400-919-8000</span>
+                <span data-v-95ac8d30="" class="sp2">欢迎您，</span>
+                <span data-v-95ac8d30="" class="sp3"></span>
+            </div>
         </div>
     </div>
     <div class="userInfo">
@@ -47,11 +47,11 @@
                         </dl>
                         <ul data-v-1cae2c34="" class="manNav">
                             <li data-v-1cae2c34="">
-                                <a data-v-1cae2c34="" href="orderManage.html" class="sel">订单管理</a>
+                                <a data-v-1cae2c34="" href="mymain.html" class="">订单管理</a>
                             </li>
-                             <li data-v-1cae2c34="">
-                                 <a data-v-1cae2c34="" href="myinfo.html" class="">个人信息</a>
-                             </li>
+                            <li data-v-1cae2c34="">
+                                <a data-v-1cae2c34="" href="myinfo.html" class="sel">个人信息</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -59,45 +59,28 @@
 
                     <div class="orderManage manage">
                         <div class="orderManageTit manageTit clear">
-                            <div class="left tit">订单管理</div>
-                            </div>
-                        <div class="orderType clear type">
-                            <div class="sel">全部订单</div>
+                            <div class="left tit">个人信息</div>
                         </div>
-                        <div class="orderList list">
-                            <div class="orderListCom listCom" style="position: static;">
-                                <table cellspacing="0" cellpadding="0">
-                                    <tr class="firstTr">
-                                        <th>订单号</th>
-                                        <th>订单金额</th>
-                                        <th>车型</th>
-                                        <th>取车地址</th>
-                                        <th>还车地址</th>
-                                        <th>订单状态</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </table>
-                                <div class="noData" id="noda">
-
-                                    <table cellspacing="0" cellpadding="0">
-                                        <tr class="firstTr" v-for="site in obj">
-                                            <td>{{site.oid}}</td>
-                                            <td>{{site.oprice}}</td>
-                                            <td>{{site.cname}}</td>
-                                            <td>{{site.getcity}}</td>
-                                            <td>{{site.backcity}}</td>
-                                            <td>{{site.ostatus}}</td>
-                                            <td><a href="#" style="color:red">删除</a></td>
+<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                        <div class="orderList list" id="noda">
+                                    <table  class="tableinfo">
+                                        <tr>
+                                            <td>手机号：{{tel}}</td>
+                                            <td><button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">修改</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>邮箱：{{email}}</td>
+                                            <td><a href="#" style="color: orangered">修改</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <a href="#" style="color: orangered">修改密码</a>
+                                            </td>
                                         </tr>
                                     </table>
-
-
-                                    <div id="fenye"></div>
-
-                                </div>
-
-                            </div>
                         </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -108,65 +91,93 @@
             <div data-v-3aaf9db2="" class="d1">
                 <a data-v-3aaf9db2="" href="about.html">关于车速递</a></div></div></div>
 
-   </div>
+</div>
 
 <script type="text/javascript">
-    var totalCount;
-
     var vm = new Vue({
         el:'#noda',
         data:{
-            obj:[],
+            tel:'',
+            email:''
         },
     });
 
     $(function () {
-        loadData(1);
-    })
-    function loadData(page) {
         $.ajax({
             type:"get",
-            url:"/carsys/order/all.do?page="+page,
+            url:"/carsys/user/denglu.do",
             dataType:"json",
-            async: false,
             success:function(data){
                 //id为0时为父类
                 if(data.code==1){
-                    totalCount = data.info.total;
-                    vm.obj=data.info.rows;
-                } else{
-                    alert(data.info);
+                    vm.tel = data.info.tel;
+                    vm.email=data.info.email;
                 }
-            },
-            error:function () {
-                alert("ajax加载错误");
-            }
-        })
-    }
-
-
-    layui.use(['laypage', 'layer'], function() {
-        var laypage = layui.laypage
-            , layer = layui.layer;
-
-        //总页数大于页码总数
-        laypage.render({
-            elem: 'fenye'
-            , count: totalCount //数据总数
-            , limit:5
-            , jump: function (obj, first) {
-                /*console.log(obj)*/
-                var currentPage = obj.curr;
-
-                loadData(currentPage);
-
             }
         });
-
-    });
-
+    })
 
 </script>
 
+
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            setTop: function(){
+                var that = this;
+                //多窗口模式，层叠置顶
+            }
+            ,offset: function(othis){
+                var type = othis.data('type')
+                    ,text = othis.text();
+
+                layer.open({
+                    type: 1
+                    ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,id: 'layerDemo'+type //防止重复弹出
+                    ,content: '<div style="width: 300px; height: 200px;">请输入修改后的手机号：<br><form><input type="text" name="tel" id="tel"></form></div>'
+                    ,btn: '修改'
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0 //不显示遮罩
+                    ,yes: function(){
+                        $.ajax({
+                            url:"/carsys/user/update.do",
+                            type:"post",
+                            data:$("form").serialize(),
+                            dataType:'json',
+                            success:function(res) {
+                                if(res.code == 1) {
+                                    alert("修改成功！");
+                                    window.location.href=("myinfo.html");
+                                } else {
+                                    layer.alert(res.info);
+                                }
+                            },
+                            error: function() {
+                                elert("ajax错误");
+                            }
+                        });
+
+
+
+
+                    }
+                });
+            }
+        };
+
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+    });
+</script>
+
+
 </body>
+</html>dy>
 </html>

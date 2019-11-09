@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.demo.carsys.dao.UserMapper">
-
+<mapper namespace="com.demo.carsys.mapper.UserMapper">
+    <resultMap id="userMap" type="com.demo.carsys.entity.User" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="tel" property="tel" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="invitation" property="invitation" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectUserByTelAndPassword" resultType="int">
+        select count(1) from sys_user where tel=#{tel} and password=#{password}
+    </select>
 </mapper>
