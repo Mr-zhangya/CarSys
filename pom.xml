@@ -18,6 +18,13 @@
             <version>5.0.2.RELEASE</version>
         </dependency>
 
+        <!--aop依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>5.0.2.RELEASE</version>
+        </dependency>
+
         <!--jdbc 驱动包，事务管理包-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -44,6 +51,19 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- Spring整合javamail需要导入以下三个包：spring-context-support、javax.mail-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>5.0.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
         </dependency>
 
         <!--mybatis包-->

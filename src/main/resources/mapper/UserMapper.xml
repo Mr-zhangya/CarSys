@@ -9,6 +9,10 @@
         <result column="email" property="email" jdbcType="VARCHAR" />
         <result column="invitation" property="invitation" jdbcType="VARCHAR" />
     </resultMap>
+    <insert id="register">
+        insert into sys_user (tel,password,email,invitation)
+        values (#{tel},#{password},#{email},#{invitation})
+    </insert>
     <select id="selectUserByTelAndPassword" resultType="int">
         select count(1) from sys_user where tel=#{tel} and password=#{password}
     </select>

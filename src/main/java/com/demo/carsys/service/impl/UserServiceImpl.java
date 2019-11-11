@@ -17,4 +17,8 @@ public class UserServiceImpl implements UserService {
          int result = userMapper.selectUserByTelAndPassword(user);
          return result > 0 ? true : false;
     }
+
+    public int register(User user) {
+        return userMapper.register(user);
+    }
 }

@@ -28,7 +28,7 @@
             <h2 data-v-95c8bc32="" class="left" style="display: none;">欢迎注册</h2>
             <h2 data-v-95c8bc32="" class="left" style="display: none;">找回密码</h2>
             <h2 data-v-95c8bc32="" class="left" style="display: none;">重置密码</h2>
-            <a data-v-95c8bc32="" href="../../index.jsp" class="right">回到首页&gt;</a>
+            <a data-v-95c8bc32="" href="${pageContext.request.contextPath}/index.jsp" class="right">回到首页&gt;</a>
         </div>
     </div>
     <div data-v-0a99943a="" class="login">
@@ -62,10 +62,10 @@
                                                                            class="right forget">忘记密码？</a></div>
                             <div class="layui-form-item">
 
-                                <button class="layui-btn" onclick="return validateLogin()">登录</button>
+                                <button class="layui-btn" onclick="return RentCarLogin()">登录</button>
                             </div>
                             <div data-v-0a99943a="" class="goRegister">
-                                还没有账号？<a data-v-0a99943a="" href="register.jsp">免费注册</a></div>
+                                还没有账号？<a data-v-0a99943a="" href="${pageContext.request.contextPath}/register/">免费注册</a></div>
                         </form>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
 </div>
 
 <script>
-    function validateLogin(){
+    function RentCarLogin(){
         var data = $("form").serialize();
         $.post(
             "${pageContext.request.contextPath}/user/loginSuccess",data,function (data) {
@@ -140,13 +140,13 @@
                     alert("登录成功");
                     location.href="${pageContext.request.contextPath}/user/index";
                 }else{
-                    //alert("用户名密码错误");
+                    alert("用户名密码错误");
                     $("#msg").text("用户名密码错误，请检查后输入");
                 }
             }
         );
-        return false;
-    };
+        return false
+    }
 </script>
 </body>
 </html>

@@ -4,4 +4,6 @@ import com.demo.carsys.entity.User;
 
 public interface UserService {
     boolean selectUserByTelAndPassword(User user);
+
+    int register(User user);
 }

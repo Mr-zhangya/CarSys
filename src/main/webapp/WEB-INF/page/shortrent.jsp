@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
@@ -18,17 +19,22 @@
     <div data-v-67ef3a4a class="csdheader">
         <div data-v-67ef3a4a class="layout clear">
             <div data-v-67ef3a4a class="left csdnav" id="daohang">
-                <label data-v-67ef3a4a v-if="weidenglu">
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/login" class="colorRed" >登录</a>
-                    <a data-v-67ef3a4a href="" class="colorRed">/</a>
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/register" class="colorRed" style="margin-right: 10px;">注册</a>
-                </label>
+                <c:if test="${empty Tel}">
+                    <label data-v-67ef3a4a v-if="weidenglu">
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/login" class="colorRed" >登录</a>
+                        <a data-v-67ef3a4a href="" class="colorRed">/</a>
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/register" class="colorRed" style="margin-right: 10px;">注册</a>
+                    </label>
+                </c:if>
+                <c:if test="${not empty Tel}">
+                    <label data-v-67ef3a4a v-if="denglu">
+                        <a data-v-67ef3a4a href="#">${Tel}</a>
+                        <a data-v-67ef3a4a href="#" class="colorRed">/</a>
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/exit" class="colorRed" style="margin-right: 10px;">[退出]</a>
+                    </label>
+                </c:if>
 
-                <label data-v-67ef3a4a v-if="denglu">
-                    <a data-v-67ef3a4a href="#">${Tel}</a>
-                    <a data-v-67ef3a4a href="#" class="colorRed">/</a>
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/exit" class="colorRed" style="margin-right: 10px;">[退出]</a>
-                </label>
+
 
 
                 <a data-v-67ef3a4a="" href="#mobileZuChe">手机租车</a>
@@ -97,12 +103,22 @@
                     <div id="sel"  v-cloak>
                          <select id="dqsel"><!-- @change="getCity(cityId)" v-model="cityId"-->
                             <option>请选择</option>
-                            <option v-for="mc in mcs" :value="mc.id">{{mc.name}}</option>
+                        <c:forEach items="${cityList}" var="city">
+                            <option id="cityName" name="cityName" value="${city.id}" onclick="selectShort(id)">${city.name}</option>
+                        </c:forEach>
                         </select>
 
                         <select id="bmsel">
                             <option>请选择</option>
-                            <option v-for="city in citys" :value="city.id">{{city.name}}</option>
+                            <%--<c:if test="${empty citylist}">
+                                <c:forEach items="${shortList}" var="short">
+                                    <option id="shortName" name="shortName">${short.name}</option>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${not empty citylist}">
+                                <option id="shortName" name="shortName"></option>
+                            </c:if>--%>
+
                         </select>
                     </div>
                 </div>
@@ -111,12 +127,21 @@
                     <div id="seltwo"  v-cloak>
                         <select id="hcc" >
                             <option>请选择</option>
-                            <option v-for="mc in mcs" :value="mc.id">{{mc.name}}</option>
+                            <c:forEach items="${cityList}" var="city">
+                                <option id="cityName" name="cityName" value="${city.id}" onclick="selectShort(id)">${city.name}</option>
+                            </c:forEach>
                         </select>
 
                         <select id="hcs">
                             <option>请选择</option>
-                            <option v-for="city in citys" :value="city.id">{{city.name}}</option>
+                            <%--<c:if test="${empty citylist}">
+                                <c:forEach items="${shortList}" var="short">
+                                    <option id="shortName" name="shortName">${short.name}</option>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${not empty citylist}">
+                                <option id="shortName" name="shortName"></option>
+                            </c:if>--%>
                         </select>
 
                     </div>
@@ -133,7 +158,25 @@
 </body>
 <script type="text/javascript">
 
-    var vm = new Vue({
+    function selectShort(id){
+        alert(id);
+        var data = id;
+        $.post(
+            "${pageContext.request.contextPath}/ShortRent/shortList",data,function (data) {
+                if(data =='success'){
+                    alert(data);
+                    location.href="${pageContext.request.contextPath}/ShortRent/shortRentList";
+                }else{
+                    alert("没有获取到数据")
+                    location.href="${pageContext.request.contextPath}/ShortRent/shortRentList";
+                }
+            }
+        );
+        return false
+    }
+
+
+    /*var vm = new Vue({
         el:'#dqsel',
         data:{
             mcs : [],
@@ -174,11 +217,11 @@
     $("#dqsel").change(function(){
         loadfirst($(this).children('option:selected').val());
     })
-
+*/
 
 </script>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
 
     var vm3 = new Vue({
         el:'#hcc',
@@ -266,7 +309,7 @@
         });
     })
 
-</script>
+</script>--%>
 
 
 

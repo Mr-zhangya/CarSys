@@ -1,9 +1,7 @@
 package com.demo.carsys.controller;
 
-import com.demo.carsys.entity.Data;
 import com.demo.carsys.entity.User;
 import com.demo.carsys.service.UserService;
-import com.demo.carsys.utils.JsonUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +55,15 @@ public class UserController {
     public String exit(HttpSession session) {
         session.removeAttribute("Tel");
         return "forward:login";
+    }
+    @RequestMapping("/register")
+    @ResponseBody
+    public String register(User user) {
+        logger.info(user);
+        int count = userService.register(user);
+        if (count > 0) {
+            return "success";
+        }
+        return "fail";
     }
 }

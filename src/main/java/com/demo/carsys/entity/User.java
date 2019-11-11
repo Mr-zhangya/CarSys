@@ -13,6 +13,4 @@ public class User {
     private String email;
 
     private String invitation;
-
-    private Integer code;
 }
