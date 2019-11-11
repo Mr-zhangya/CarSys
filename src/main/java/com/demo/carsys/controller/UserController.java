@@ -35,7 +35,6 @@ public class UserController {
     public String loginSuccess(String tel,String password,HttpSession session) {
 
         logger.info(tel);
-
         User user = new User();
         user.setTel(tel);
         user.setPassword(password);

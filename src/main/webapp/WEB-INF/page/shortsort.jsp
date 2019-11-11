@@ -217,16 +217,18 @@
 
 <script type="text/javascript">
     $(function(){
+        alert("1111111111111111")
         var getid = window.location.search;
+        alert(getid)
         $.ajax({
         type:"get",
         url:"${pageContext.request.contextPath}/city/citys"+getid,
+
             dataType:"json",
             success:function(data){
-                if(data.code==1) {
-                 var infos = data.info;
-                 var get = infos.getCity;
-                 var back = infos.backCity;
+                if(data == "success") {
+                 var get = data.getCarCity;
+                 var back = data.repayCarCity;
                  vm.getcitys = get.name;
                  vm.backcitys = back.name;
             }

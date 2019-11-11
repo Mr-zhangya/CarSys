@@ -9,9 +9,15 @@ public class City {
     private String name;
     private Integer pid;
 
-    // 城市 Pid
-    private Integer cityPid;
 
-    // 地区 Pid
-    private Integer regionPid;
+    // 取车 地区 Pid
+    private Integer getPid;
+    // 取车 地区
+    private String getCarCity;
+
+    // 还车 地区 Pid
+    private Integer repayPid;
+    // 还车 地区
+    private String repayCarCity;
+
 }

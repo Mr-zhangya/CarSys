@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.carsys.mapper.CityMapper">
+    <resultMap id="cityMap" type="com.demo.carsys.entity.City">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pid" property="pid"/>
+    </resultMap>
+    <select id="selectGetCarCityByPid" resultType="string">
+        select name from sys_city where id = #{getid}
+    </select>
+    <select id="selectRepayCarCityByPid" resultType="string">
+         select name from sys_city where id = #{backid}
+    </select>
+    <select id="selectCitys" resultType="com.demo.carsys.entity.City">
+        select * from  sys_city
+    </select>
+</mapper>
