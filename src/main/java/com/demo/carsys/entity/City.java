@@ -2,15 +2,16 @@ package com.demo.carsys.entity;
 
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 public class City {
     private Integer id;
     private String name;
-    private Integer pId;
+    private Integer pid;
 
-    private List<City> shortList;
+    // 城市 Pid
+    private Integer cityPid;
 
-    private List<City> cityList;
+    // 地区 Pid
+    private Integer regionPid;
 }

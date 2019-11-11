@@ -30,7 +30,22 @@
     <!--**************************spring MVC 基本配置******************************-->
 
     <!--Spring MVC 的注解驱动-->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" >
+                <property name = "supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=utf-8</value>
+                        <value>text/html;charset=utf-8</value>
+                        <!-- application 可以在任意 form 表单里面 enctype 属性默认找到 -->
+                        <value>application/x-www-form-urlencoded</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
 
     <!--视图解析器配置-->
     <mvc:view-resolvers>

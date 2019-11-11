@@ -14,19 +14,7 @@ public class ShortRentServiceImpl implements ShortRentService {
     @Autowired
     ShortRentMapper shortRentMapper;
 
-    public List<City> shortRentCityList() {
-        List<City> cityList = shortRentMapper.shortRentCityList();
-
-
-       /* for (int i = 0; i < cityList.size(); i++) {
-            Integer id = cityList.get(i).getId();
-            shortRentMapper.shortRentList(id);
-        }*/
-
-        return cityList;
-    }
-
-    public List<City> shortRentList(int id) {
-        return shortRentMapper.shortRentList(id);
+    public List<City> selectCity(Integer pid) {
+        return shortRentMapper.selectCity(pid);
     }
 }

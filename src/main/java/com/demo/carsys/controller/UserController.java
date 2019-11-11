@@ -2,6 +2,7 @@ package com.demo.carsys.controller;
 
 import com.demo.carsys.entity.User;
 import com.demo.carsys.service.UserService;
+import com.demo.carsys.utils.JsonUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,9 @@ public class UserController {
         boolean result = userService.selectUserByTelAndPassword(user);
         if (result) {
             session.setAttribute("Tel",user.getTel());
-            return "success";
+            return JsonUtils.objectToJson("success");
         }
-        return "fail";
+        return JsonUtils.objectToJson("fail");
     }
     @RequestMapping("/index")
     public String loginSuccess() {
@@ -61,9 +62,10 @@ public class UserController {
     public String register(User user) {
         logger.info(user);
         int count = userService.register(user);
-        if (count > 0) {
-            return "success";
+        logger.info(count);
+        if (count == 1) {
+            return JsonUtils.objectToJson("success");
         }
-        return "fail";
+        return JsonUtils.objectToJson("fail");
     }
 }

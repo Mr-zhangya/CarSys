@@ -1,16 +1,18 @@
 package com.demo.carsys.controller;
 import com.demo.carsys.entity.City;
 import com.demo.carsys.service.ShortRentService;
+import com.demo.carsys.utils.JsonUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.List;
 
-@RequestMapping("/ShortRent")
+@RequestMapping("/rent")
 @Controller
 public class ShortRentController {
     private static final Logger logger = LogManager.getLogger(UserController.class);
@@ -19,22 +21,17 @@ public class ShortRentController {
     @Autowired
     ShortRentService shortRentService;
 
-    @RequestMapping("/shortRentList")
-    public String shortRentList(Model model) {
-        List<City> cityList = shortRentService.shortRentCityList();
-        model.addAttribute(cityList);
+    @RequestMapping("/shortRent")
+    public String rent() {
         return "shortrent";
     }
 
-    @RequestMapping("/shortList")
+
+    @RequestMapping(value = "/select",method = RequestMethod.POST)
     @ResponseBody
-    public String shortList(int id,Model model) {
-        logger.info(id);
-        List<City> shortList = shortRentService.shortRentList(id);
-        for ( City city: shortList) {
-            logger.info(city);
-        }
-        model.addAttribute(shortList);
-        return "success";
+    public String selectCity(Integer pid) {
+        List<City> cityList = shortRentService.selectCity(pid);
+        logger.info(cityList);
+        return JsonUtils.objectToJson(cityList);
     }
 }

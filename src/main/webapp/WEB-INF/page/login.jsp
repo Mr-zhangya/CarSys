@@ -133,9 +133,9 @@
 
 <script>
     function RentCarLogin(){
-        var data = $("form").serialize();
+        var data3 = $("form").serialize();
         $.post(
-            "${pageContext.request.contextPath}/user/loginSuccess",data,function (data) {
+            "${pageContext.request.contextPath}/user/loginSuccess",data3,function (data) {
                 if(data =='success'){
                     alert("登录成功");
                     location.href="${pageContext.request.contextPath}/user/index";
@@ -145,7 +145,7 @@
                 }
             }
         );
-        return false
+        return false;
     }
 </script>
 </body>

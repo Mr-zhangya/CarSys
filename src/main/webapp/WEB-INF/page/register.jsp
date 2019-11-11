@@ -182,22 +182,91 @@
         <!----> <!----> <!----> <!----> <!----> <!----> <!----> <span data-v-0380595b="" class="edge"></span></div>
     <!----></div>
 <script type="text/javascript">
+    function validateMail() {
+        var mail = $("#mail").val();
+        var regex = /^\w+@\w+.\w+$/;
+        if (mail.match(regex)) {
+            $("#result").text("此邮箱格式正确");
+            $("#result").css("color", "green");
+            return true;
+        } else {
+            $("#result").text("此邮箱格式错误");
+            $("#result").css("color", "red");
+            return false;
+        }
+    }
 
-    // 验证手机号是否已经被注册
+    function sendValidate() {
+        var data = $("#mail").val();
+        alert(data);
+        // 数据传输的是一个json数据,需要拼接
+        var sendData3 = {
+            email:data
+        };
+        $.post(
+            "${pageContext.request.contextPath}/register/validate", sendData3, function (data) {
+                if (data == "success") {
+                    $("#result2").text("验证码发送成功！");
+                    $("#result2").css("color", "green");
+                } else {
+                    $("#result2").text("该邮箱已被注册！");
+                    $("#result2").css("color", "red");
+                }
+            }
+        );
+        return false;
+    }
+
+    function validateCode() {
+        var data = $("#code").val();
+        alert(data);
+        var sendData2 = {
+            invitation:data
+        };
+        $.post(
+            "${pageContext.request.contextPath}/register/validateCode", sendData2, function (data) {
+                if (data == "success") {
+                    $("#validateCode").text("验证码正确！");
+                    $("#validateCode").css("color", "green");
+                } else {
+                    $("#validateCode").text("验证码错误！请核查后重新输入！");
+                    $("#validateCode").css("color", "red");
+                }
+            }
+        );
+    }
+
+    function validateMm() {
+        var v1 = $("#password").val();
+        var v2 = $("#password2").val();
+
+        if (v1 != '' && v1 == v2) {
+            $("#msg").text("两次密码一致");
+            $("#msg").css("color", "green");
+            return true;
+        } else {
+            $("#msg").text("两次密码不一致，请检查");
+            $("#msg").css("color", "red");
+            return false;
+        }
+    }
+
+    var result = true;
+
     function validateTel() {
-        //alert($("#tel").val());
+        alert($("#tel").val());
         var name = $("#tel").val();
-        var data = $("#tel").val();
+        var data1 = $("#tel").val();
 
         // 数据传输的是一个json数据,需要拼接
-        var sendData = {
-            tel: data
+        var sendData1 = {
+            tel:data1
         };
 
-        alert(data);
+        alert(data1);
         if (name != '') {
             $.post(
-                "${pageContext.request.contextPath}/register/verifyTel", sendData, function (data) {
+                "${pageContext.request.contextPath}/register/verifyTel", sendData1, function (data) {
                     alert(data);
                     if (data == "success") {
                         $("#message").text("该手机号可以用");
@@ -216,84 +285,10 @@
         }
     }
 
-    // 验证两次输入的密码是否一致
-    function validateMm() {
-        var v1 = $("#password").val();
-        var v2 = $("#password2").val();
-
-        if (v1 != '' && v1 == v2) {
-            $("#msg").text("两次密码一致");
-            $("#msg").css("color", "green");
-            return true;
-        } else {
-            $("#msg").text("两次密码不一致，请检查");
-            $("#msg").css("color", "red");
-            return false;
-        }
-    }
-
-    // 验证邮箱的格式是否正确
-    function validateMail() {
-        var mail = $("#mail").val();
-        var regex = /^\w+@\w+.\w+$/;
-        if (mail.match(regex)) {
-            $("#result").text("此邮箱格式正确");
-            $("#result").css("color", "green");
-            return true;
-        } else {
-            $("#result").text("此邮箱格式错误");
-            $("#result").css("color", "red");
-            return false;
-        }
-    }
-
-    // 发送一个验证码
-    function sendValidate() {
-        var data = $("#mail").val();
-        alert(data);
-        // 数据传输的是一个json数据,需要拼接
-        var sendData = {
-            email:data
-        };
-        $.post(
-            "${pageContext.request.contextPath}/register/validate", sendData, function (data) {
-                if (data == "success") {
-                    $("#result2").text("验证码发送成功！");
-                    $("#result2").css("color", "green");
-                } else {
-                    $("#result2").text("该邮箱已被注册！");
-                    $("#result2").css("color", "red");
-                }
-            }
-        );
-        return false;
-    }
-
-    // 验证 验证码是否与刚刚发送出是否一致
-    function validateCode() {
-        var data = $("#code").val();
-        alert(data);
-        var sendData = {
-            invitation:data
-        };
-        $.post(
-            "${pageContext.request.contextPath}/register/validateCode", sendData, function (data) {
-                if (data == "success") {
-                    $("#validateCode").text("验证码正确！");
-                    $("#validateCode").css("color", "green");
-                } else {
-                    $("#validateCode").text("验证码错误！请核查后重新输入！");
-                    $("#validateCode").css("color", "red");
-                }
-            }
-        );
-    }
-
-    // 提交form表单进行
     function validateForm(){
-        var data = $("form").serialize();
+        var data2 = $("form").serialize();
         $.post(
-            "${pageContext.request.contextPath}/user/register",data,function (data) {
+            "${pageContext.request.contextPath}/user/register",data2,function (data) {
                 if(data =='success'){
                     alert("注册成功");
                     location.href="${pageContext.request.contextPath}/user/login";
@@ -304,6 +299,22 @@
         );
         return false
     }
+    /*function validateForm() {
+        alert("1");
+        //alert($("#form"));
+        $("#form").submit(function () {
+            alert("2");
+            if (validateMm() && result && validateMail()) {
+                //此表单都正确，可以提交给服务器
+                alert("3");
+
+                return true;
+            } else {
+                alert("4");
+                return false;
+            }
+        });
+    }*/
 </script>
 </body>
 </html>

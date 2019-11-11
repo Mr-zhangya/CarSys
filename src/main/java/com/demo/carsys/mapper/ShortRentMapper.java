@@ -8,7 +8,5 @@ import java.util.List;
 @Repository
 public interface ShortRentMapper {
 
-    List<City> shortRentCityList();
-
-    List<City> shortRentList(int id);
+    List<City> selectCity(Integer pid);
 }

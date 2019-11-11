@@ -5,13 +5,11 @@
     <resultMap id="cityMap" type="com.demo.carsys.entity.City">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="pid" property="pId"/>
+        <result column="pid" property="pid"/>
     </resultMap>
-    <select id="shortRentCityList" resultType="com.demo.carsys.entity.City">
-        select id,name,pid from sys_city where pid=0
-    </select>
-    <select id="shortRentList" resultType="com.demo.carsys.entity.City">
-        select name from sys_city where pid = #{id}
+
+    <select id="selectCity" resultMap="cityMap">
+        select id,name,pid from sys_city where pid = #{pid}
     </select>
 
 </mapper>

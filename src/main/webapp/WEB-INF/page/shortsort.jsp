@@ -87,189 +87,230 @@
         </div>
     </div>
 
-    <div class="chooseCar">
+    <div class="selCarMsg" >
+    <div class="selCarMsgCom">
+        <div class="Msg" >取车地址：{{getcitys}}</div>
+    </div>
 
-            <div class="chooseCarL">
-                <form action="" onsubmit="return false;">
-                <div class="choose-get item">
-
-                    <span class="itemTitle-red left">取&nbsp&nbsp车&nbsp&nbsp地&nbsp&nbsp址</span>
-                    <div id="sel"  v-cloak>
-                         <select id="dqsel"><!-- @change="getCity(cityId)" v-model="cityId"-->
-                            <option>请选择</option>
-                            <option v-for="mc in mcs" :value="mc.id">{{mc.name}}</option>
-                        </select>
-
-                        <select id="bmsel">
-                            <option>请选择</option>
-                            <option v-for="city in citys" :value="city.id">{{city.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="choose-return item">
-                    <span class="itemTitle-red left">还&nbsp&nbsp车&nbsp&nbsp地&nbsp&nbsp址</span>
-                    <div id="seltwo"  v-cloak>
-                        <select id="hcc" >
-                            <option>请选择</option>
-                            <option v-for="mc in mcs" :value="mc.id">{{mc.name}}</option>
-                        </select>
-
-                        <select id="hcs">
-                            <option>请选择</option>
-                            <option v-for="city in citys" :value="city.id">{{city.name}}</option>
-                        </select>
-
-                    </div>
-
-                </div>
-                </form>
-
-            </div>
-        <div class="chooseCarR">
-            <button class="goChooseCar" onclick="selectCar()">去选车</button>
-        </div>
+    <div class="selCarMsgCom">
+        <div class="Msg">还车地址：{{backcitys}}</div>
     </div>
 </div>
-</body>
+
+
+
+<div class="carListTab">
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">按租金排序</li>
+            <li>按热度排序</li>
+        </ul>
+        <div class="layui-tab-content">
+
+
+            <div class="layui-tab-item layui-show">
+                <!--for循环这段代码-->
+
+                <div class="item clear" id="carlist">
+                    <div class="thisPlace clear" id="carli" v-for="site in sites">
+                        <div class="itemCarImg left">
+                           <img :src="site.picture">
+                        </div>
+                        <div class="itemCarMsg left" >
+                            <h1 id="sitename">{{site.name}}</h1>
+                            <p id="sitetype">{{site.type}}</p><p id="sitenum">{{site.sitnum}}座</p>
+                        </div>
+                        <div class="itemPriceMsg left">
+                            <div class="itemPriceMsgC left">
+                                <p class="p1">
+                                    <span id="siteprice">{{site.price}}</span>/日均
+                                </p>
+                            </div>
+                            <div class="carLiBao">5天以上立减 5元/天</div>
+                        </div>
+
+                        <div class="itemBtn left">
+                            <button class="butt"  @click="selectCar(site.id)">预定</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+            <div class="layui-tab-item">
+
+
+                <div class="item clear" id="carlis">
+                    <div class="thisPlace clear" id="carl" v-for="site in cars">
+                        <div class="itemCarImg left">
+                            <img  :src="site.picture">
+                        </div>
+                        <div class="itemCarMsg left" >
+                            <h1>{{site.name}}</h1>
+                            <p>{{site.type}}</p><p>{{site.sitnum}}座</p>
+                        </div>
+                        <div class="itemPriceMsg left">
+                            <div class="itemPriceMsgC left">
+                                <p class="p1">
+                                    <span>{{site.price}}</span>/日均
+                                </p>
+                            </div>
+                            <div class="carLiBao">5天以上立减 5元/天</div>
+                        </div>
+
+                        <div class="itemBtn left">
+                            <button class="butt" @click="selectCar(site.id)" >预定</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
 <script type="text/javascript">
 
+    var getid = window.location.search;
     var vm = new Vue({
-        el:'#dqsel',
+        el:'.selCarMsg',
         data:{
-            mcs : [],
+            getcitys : '',
+            backcitys: ''
         },
     });
 
-    var vm2 = new Vue({
-        el:'#bmsel',
+   var vm2 = new Vue({
+       el:'#carlist',
         data:{
-            citys : [],
+           sites : [],
         },
+       methods:{
+         selectCar:function (id) {
+             window.location.href="../order/ordersubmit.html"+getid +"&cid=" +id;
+         }
+       },
+
     });
-
-
-    $(function(){
-        loadfirst(0);
-    });
-
-    function sub(id){
-        loadfirst(id);
-    }
-
-    function loadfirst(pid){
-        $.ajax({
-            type:"post",
-            url:"${pageContext.request.contextPath}/rent/select?pid="+pid,
-            dataType:"json",
-            success:function(data){
-
-                //id为0时为父类
-                if(pid==0){
-                    vm.mcs=data;
-                }else{
-                    vm2.citys = data;
-                }
-            }
-        });
-    }
-    $("#dqsel").change(function(){
-        loadfirst($(this).children('option:selected').val());
-    })
-
-
-</script>
-
-<script type="text/javascript">
 
     var vm3 = new Vue({
-        el:'#hcc',
+        el:'#carlis',
         data:{
-            mcs : [],
+            cars : [],
         },
+
     });
 
-    var vm4 = new Vue({
-        el:'#hcs',
-        data:{
-            citys : [],
-        },
-    });
+</script>
 
-
-
+<script type="text/javascript">
     $(function(){
-        load(0);
-    });
-
-    function sub(id){
-        load(id);
-    }
-
-    function load(pid){
+        var getid = window.location.search;
         $.ajax({
-            type:"post",
-            url:"${pageContext.request.contextPath}/rent/select?pid="+pid,
+        type:"get",
+        url:"${pageContext.request.contextPath}/city/citys"+getid,
             dataType:"json",
             success:function(data){
-                //id为0时为父类
-                if(pid==0){
-                    vm3.mcs=data;
-                }else{
-                    vm4.citys=data;
-                }
+                if(data.code==1) {
+                 var infos = data.info;
+                 var get = infos.getCity;
+                 var back = infos.backCity;
+                 vm.getcitys = get.name;
+                 vm.backcitys = back.name;
             }
-        });
-    }
-
-    $("#hcc").change(function(){
-        load($(this).children('option:selected').val());
-    })
-
-</script>
-
-<script type="text/javascript">
-
-    function selectCar() {
-        var getid = $("#bmsel").val();
-        var backid = $("#hcs").val();
-        window.location.href="${pageContext.request.contextPath}/sort/shortSort?getid="+getid+"&backid="+backid;
-        }
-
-</script>
-
-<script type="text/javascript">
-    var vm5 = new Vue({
-        el:'#daohang',
-        data:{
-            denglu:'',
-            weidenglu:''
-
-
         },
-    });
+        error : function(){
+            alert("ajax加载失败");
+            }
 
-    $(function () {
+            })
+        })
+
+</script>
+
+<script type="text/javascript">
+    $(function(){
+        var getid = window.location.search;
         $.ajax({
-            type:"post",
-            url:"/carsys/user/denglu",
+            type:"get",
+            url:"/carsys/car/price.do"+getid,
             dataType:"json",
             success:function(data){
-                //id为0时为父类
-                if(data.code==1){
-                    vm5.denglu=true;
-                    vm5.weidenglu=false;
-                }else{
-                    vm5.denglu=false;
-                    vm5.weidenglu=true;
+                if(data.code==1) {
+                    vm2.sites = data.info;
+
                 }
+            },
+            error : function(){
+                alert("ajax加载失败");
             }
-        });
+
+        })
+    })
+
+</script>
+
+<script type="text/javascript">
+    $(function(){
+        var getid = window.location.search;
+        $.ajax({
+            type:"get",
+            url:"/carsys/car/number.do"+getid,
+            dataType:"json",
+            success:function(data){
+                if(data.code==1) {
+                    vm3.cars = data.info;
+
+                }
+            },
+            error : function(){
+                alert("ajax加载失败");
+            }
+
+        })
     })
 
 </script>
 
 
+<!--<script type="text/javascript">
+
+    function selectCar(cid) {
+
+        window.location.href="../order/ordersubmit.html?cid="+cid;
+
+    }
+
+</script>-->
 
 
 
+
+
+
+<script>
+    layui.use('element', function(){
+        var $ = layui.jquery
+            ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+
+    });
+</script>
+
+
+
+
+</body>
 </html>
