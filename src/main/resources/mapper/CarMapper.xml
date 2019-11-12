@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.carsys.mapper.CarMapper">
+    <resultMap id="carMap" type="com.demo.carsys.entity.Car" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="sitnum" property="sitnum" jdbcType="INTEGER" />
+        <result column="cid" property="cid" jdbcType="INTEGER" />
+        <result column="price" property="price" jdbcType="DOUBLE" />
+        <result column="number" property="number" jdbcType="INTEGER" />
+        <result column="picture" property="picture" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="priceSort" resultMap="carMap">
+        select * from sys_car where cid = #{gitid} order by price desc
+    </select>
+    <select id="numberSort" resultMap="carMap">
+        select * from sys_car where cid = #{getid} order by number desc
+    </select>
+
+</mapper>

@@ -225,6 +225,7 @@
         };
         $.post(
             "${pageContext.request.contextPath}/register/validateCode", sendData2, function (data) {
+                alert(data);
                 if (data == "success") {
                     $("#validateCode").text("验证码正确！");
                     $("#validateCode").css("color", "green");
