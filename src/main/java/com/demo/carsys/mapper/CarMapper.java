@@ -10,4 +10,6 @@ public interface CarMapper {
     List<Car> priceSort(Integer getid);
 
     List<Car> numberSort(Integer getid);
+
+    Car findCar(Integer cid);
 }

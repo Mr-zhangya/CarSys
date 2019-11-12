@@ -18,17 +18,22 @@
     <div data-v-67ef3a4a class="csdheader">
         <div data-v-67ef3a4a class="layout clear">
             <div data-v-67ef3a4a class="left csdnav" id="daohang">
-                <label data-v-67ef3a4a v-if="weidenglu">
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/login" class="colorRed" >登录</a>
-                    <a data-v-67ef3a4a href="" class="colorRed">/</a>
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/register" class="colorRed" style="margin-right: 10px;">注册</a>
-                </label>
-
-                <label data-v-67ef3a4a v-if="denglu">
-                    <a data-v-67ef3a4a href="#">${Tel}</a>
-                    <a data-v-67ef3a4a href="#" class="colorRed">/</a>
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/exit" class="colorRed" style="margin-right: 10px;">[退出]</a>
-                </label>
+                <c:if test="${empty Tel}">
+                    <label data-v-67ef3a4a v-if="weidenglu">
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/login" class="colorRed">登录</a>
+                        <a data-v-67ef3a4a href="" class="colorRed">/</a>
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/register" class="colorRed"
+                           style="margin-right: 10px;">注册</a>
+                    </label>
+                </c:if>
+                <c:if test="${not empty Tel}">
+                    <label data-v-67ef3a4a v-if="denglu">
+                        <a data-v-67ef3a4a href="#">${Tel}</a>
+                        <a data-v-67ef3a4a href="#" class="colorRed">/</a>
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/exit" class="colorRed"
+                           style="margin-right: 10px;">[退出]</a>
+                    </label>
+                </c:if>
 
 
                 <a data-v-67ef3a4a="" href="#mobileZuChe">手机租车</a>

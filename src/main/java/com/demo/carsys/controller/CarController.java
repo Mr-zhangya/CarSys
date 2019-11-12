@@ -33,13 +33,30 @@ public class CarController {
 
     @RequestMapping("/number")
     public String numberSort(Integer getid,Integer backid) {
-        logger.info("--------------------------------------------------------------------");
+        logger.info("------------------------------还车地点ID-----------------------------");
         logger.info(backid);
         logger.info("--------------------------------------------------------------------");
         List<Car> list = carService.numberSort(getid);
-        logger.info("--------------------------------------------------------------------");
+        logger.info("-----------------------取车地点的所有车辆------------------------------");
         logger.info(list);
         logger.info("--------------------------------------------------------------------");
         return JsonUtils.objectToJson(list);
+    }
+
+    @RequestMapping("/findcar")
+    public Car findcar(Integer cid) {
+
+        logger.info("////////////////////////////车的id/////////////////////////////////");
+        logger.info(cid);
+        logger.info("////////////////////////////////////////////////////////////////////");
+
+        Car car;
+        car = carService.findCar(cid);
+
+        logger.info("+++++++++++++++++++++++++++车的信息+++++++++++++++++++++++++++++++++++");
+        logger.info(car);
+        logger.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+        return car;
     }
 }

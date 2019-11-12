@@ -20,12 +20,13 @@ public class CityController {
     @RequestMapping("/citys")
     @ResponseBody
     public City citys(Integer getid, Integer backid) {
-        logger.info("++++++++++++++++++++++++++++++++++++");
+        logger.info("++++++++++++++++取车地点ID+++++++++++++++");
         logger.info(getid);
-        logger.info("++++++++++++++++++++++++++++++++++++");
-        logger.info("-------------------------------------");
+        logger.info("++++++++++++++++++++++++++++++++++++++++");
+
+        logger.info("---------------还车地点ID---------------");
         logger.info(backid);
-        logger.info("-------------------------------------");
+        logger.info("----------------------------------------");
         String getCarCity = cityService.selectGetCarCityByPid(getid);
         String repayCarCity = cityService.selectRepayCarCityByPid(backid);
 

@@ -32,6 +32,10 @@ public class ShortRentController {
     public String selectCity(Integer pid) {
         List<City> cityList = shortRentService.selectCity(pid);
         logger.info(cityList);
+
+        for (int i = 0; i < cityList.size(); i++) {
+            cityList.get(i);
+        }
         return JsonUtils.objectToJson(cityList);
     }
 }

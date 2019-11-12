@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
@@ -20,20 +21,22 @@
     <div data-v-67ef3a4a class="csdheader">
         <div data-v-67ef3a4a class="layout clear">
             <div data-v-67ef3a4a class="left csdnav" id="daohang">
-                <label data-v-67ef3a4a v-if="weidenglu">
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/login" class="colorRed">登录</a>
-                    <a data-v-67ef3a4a href="" class="colorRed">/</a>
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/register" class="colorRed"
-                       style="margin-right: 10px;">注册</a>
-                </label>
-
-                <label data-v-67ef3a4a v-if="denglu">
-                    <a data-v-67ef3a4a href="#">${Tel}</a>
-                    <a data-v-67ef3a4a href="#" class="colorRed">/</a>
-                    <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/exit" class="colorRed"
-                       style="margin-right: 10px;">[退出]</a>
-                </label>
-
+                <c:if test="${empty Tel}">
+                    <label data-v-67ef3a4a v-if="weidenglu">
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/login" class="colorRed">登录</a>
+                        <a data-v-67ef3a4a href="" class="colorRed">/</a>
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/register" class="colorRed"
+                           style="margin-right: 10px;">注册</a>
+                    </label>
+                </c:if>
+                <c:if test="${not empty Tel}">
+                    <label data-v-67ef3a4a v-if="denglu">
+                        <a data-v-67ef3a4a href="#">${Tel}</a>
+                        <a data-v-67ef3a4a href="#" class="colorRed">/</a>
+                        <a data-v-67ef3a4a href="${pageContext.request.contextPath}/user/exit" class="colorRed"
+                           style="margin-right: 10px;">[退出]</a>
+                    </label>
+                </c:if>
 
                 <a data-v-67ef3a4a="" href="#mobileZuChe">手机租车</a>
                 <a data-v-67ef3a4a="" href="helpCenter.html">帮助中心</a>
@@ -45,7 +48,7 @@
                     <a data-v-67ef3a4a="" href="../en/index.html">English</a>
                 </div>
                 <div data-v-67ef3a4a="" class="menu">
-                    <a data-v-67ef3a4a="" href="../mymain/mymain.html">我的车速递</a>
+                    <a data-v-67ef3a4a="" href="${pageContext.request.contextPath}/order/mymain">我的车速递</a>
                 </div>
                 <div data-v-67ef3a4a="">
                     <i class="layui-icon layui-icon-cellphone" style="font-size:14px;  color:#c6000f;"></i>
@@ -182,135 +185,133 @@
             </div>
         </div>
 
-
     </div>
+</div>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
+    var getid = window.location.search;
+    var vm = new Vue({
+        el: '.selCarMsg',
+        data: {
+            getcitys: '',
+            backcitys: ''
+        },
+    });
+
+    var vm2 = new Vue({
+        el: '#carlist',
+        data: {
+            sites: [],
+        },
+        methods: {
+            selectCar: function (id) {
+                window.location.href = "${pageContext.request.contextPath}/order/ordersubmit" + getid + "&cid=" + id;
+            }
+        },
+    });
+
+    var vm3 = new Vue({
+        el: '#carlis',
+        data: {
+            cars: [],
+        },
+
+    });
+
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        alert("1111111111111111")
         var getid = window.location.search;
-        var vm = new Vue({
-            el: '.selCarMsg',
-            data: {
-                getcitys: '',
-                backcitys: ''
+        alert(getid)
+        $.ajax({
+            type: "get",
+            url: "${pageContext.request.contextPath}/city/citys" + getid,
+
+            dataType: "json",
+            success: function (city) {
+                var get = city.getCarCity;
+                var back = city.repayCarCity;
+                vm.getcitys = get;
+                vm.backcitys = back;
             },
-        });
+            error: function () {
+                alert("ajax加载失败");
+            }
 
-        var vm2 = new Vue({
-            el: '#carlist',
-            data: {
-                sites: [],
-            },
-            methods: {
-                selectCar: function (id) {
-                    window.location.href = "../order/ordersubmit.jsp" + getid + "&cid=" + id;
-                }
-            },
-
-        });
-
-        var vm3 = new Vue({
-            el: '#carlis',
-            data: {
-                cars: [],
-            },
-
-        });
-
-    </script>
-
-    <script type="text/javascript">
-        $(function () {
-            alert("1111111111111111")
-            var getid = window.location.search;
-            alert(getid)
-            $.ajax({
-                type: "get",
-                url: "${pageContext.request.contextPath}/city/citys" + getid,
-
-                dataType: "json",
-                success: function (city) {
-                    var get = city.getCarCity;
-                    var back = city.repayCarCity;
-                    vm.getcitys = get;
-                    vm.backcitys = back;
-                },
-                error: function () {
-                    alert("ajax加载失败");
-                }
-
-            })
         })
+    })
 
-    </script>
+</script>
 
-    <script type="text/javascript">
-        $(function () {
-            var getid = window.location.search;
-            $.ajax({
-                type: "get",
-                url: "${pageContext.request.contextPath}/car/price" + getid,
-                dataType: "json",
-                success: function (data) {
-                    if (data != null) {
-                        vm2.sites = data;
-                    } else {
-                        $("#msg").text("抱歉，当前地区没有可租用的车辆！");
-                    }
-                },
-                error: function () {
-                    alert("ajax加载失败");
+<script type="text/javascript">
+    $(function () {
+        var getid = window.location.search;
+        $.ajax({
+            type: "get",
+            url: "${pageContext.request.contextPath}/car/price" + getid,
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    vm2.sites = data;
+                } else {
+                    $("#msg").text("抱歉，当前地区没有可租用的车辆！");
                 }
+            },
+            error: function () {
+                alert("ajax加载失败");
+            }
 
-            })
         })
+    })
 
-    </script>
+</script>
 
-    <script type="text/javascript">
-        $(function () {
-            var getid = window.location.search;
-            $.ajax({
-                type: "get",
-                url: "${pageContext.request.contextPath}/car/number" + getid,
-                dataType: "json",
-                success: function (data) {
-                    if (data != null) {
-                        vm3.cars = data;
-                    } else {
-                        $("#msg2").text("抱歉，当前地区没有可租用的车辆！");
-                    }
-                },
-                error: function () {
-                    alert("ajax加载失败");
+<script type="text/javascript">
+    $(function () {
+        var getid = window.location.search;
+        $.ajax({
+            type: "get",
+            url: "${pageContext.request.contextPath}/car/number" + getid,
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    vm3.cars = data;
+                } else {
+                    $("#msg2").text("抱歉，当前地区没有可租用的车辆！");
                 }
+            },
+            error: function () {
+                alert("ajax加载失败");
+            }
 
-            })
         })
+    })
 
-    </script>
-
-
-    <!--<script type="text/javascript">
-
-        function selectCar(cid) {
-
-            window.location.href="../order/ordersubmit.jsp?cid="+cid;
-
-        }
-
-    </script>-->
+</script>
 
 
-    <script>
-        layui.use('element', function () {
-            var $ = layui.jquery
-                , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+<script type="text/javascript">
+
+   /* function selectCar(cid) {
+        alert(cid);
+        window.location.href = "${pageContext.request.contextPath}/order/ordersubmit?cid=" + cid;
+    }*/
+
+</script>
 
 
-        });
-    </script>
+<script>
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+
+    });
+</script>
 
 
 </body>

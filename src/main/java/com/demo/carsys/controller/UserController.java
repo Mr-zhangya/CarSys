@@ -41,7 +41,10 @@ public class UserController {
 
         boolean result = userService.selectUserByTelAndPassword(user);
         if (result) {
-            session.setAttribute("Tel",user.getTel());
+            user = userService.selectUserByTel(tel);
+            session.setAttribute("userId",user.getId());
+            logger.info("我是登录时的userId ============================ " + user.getId());
+            session.setAttribute("Tel", user.getTel());
             return JsonUtils.objectToJson("success");
         }
         return JsonUtils.objectToJson("fail");

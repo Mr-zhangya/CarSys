@@ -8,4 +8,6 @@ public interface UserMapper {
     int selectUserByTelAndPassword(User user);
 
     int register(User user);
+
+    User selectUserByTel(String tel);
 }

@@ -18,5 +18,8 @@
     <select id="numberSort" resultMap="carMap">
         select * from sys_car where cid = #{getid} order by number desc
     </select>
+    <select id="findCar" resultMap="carMap">
+        select * from sys_car where id = #{cid}
+    </select>
 
 </mapper>

@@ -6,16 +6,20 @@ import com.demo.carsys.service.RegisterService;
 import com.demo.carsys.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     RegisterMapper registerMapper;
+
+    @Transactional
     public int verifyTel(String tel) {
         return registerMapper.verifyTel(tel);
     }
 
+    @Transactional
     public int validate(User user) {
 
         // 查看邮箱是否已被注册
