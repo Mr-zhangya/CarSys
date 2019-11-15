@@ -13,7 +13,7 @@
         <result column="picture" property="picture" jdbcType="VARCHAR" />
     </resultMap>
     <select id="priceSort" resultMap="carMap">
-        select * from sys_car where cid = #{gitid} order by price desc
+        select * from sys_car where cid = #{getid} order by price desc
     </select>
     <select id="numberSort" resultMap="carMap">
         select * from sys_car where cid = #{getid} order by number desc

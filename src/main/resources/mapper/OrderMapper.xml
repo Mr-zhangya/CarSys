@@ -18,12 +18,14 @@
     </insert>
     <select id="allByUid" resultType="com.demo.carsys.entity.UserOrder">
         select
-        so.id,so.oprice,
+        so.id,
+        so.oprice,
         so.status as ostatus,
         sc.name as cname,
         c1.name as gname,
         c2.name as bname
-        from sys_order so ,
+        from
+        sys_order so ,
         sys_car sc ,
         sys_city c1 ,
         sys_city c2
@@ -35,5 +37,50 @@
         so.backid = c2.id
         and
         so.uid = #{uid};
+    </select>
+    <select id="selectCountByUid" resultType="java.lang.Integer">
+        select count(1) from sys_order where uid = #{uid}
+    </select>
+    <select id="page" resultType="com.demo.carsys.entity.UserOrder">
+        select
+        so.id,
+        so.oprice,
+        so.status as ostatus,
+        sc.name as cname,
+        c1.name as gname,
+        c2.name as bname
+        from
+        sys_order so ,
+        sys_car sc ,
+        sys_city c1 ,
+        sys_city c2
+        where
+        so.cid = sc.id
+        and
+        so.getid = c1.id
+        and
+        so.backid = c2.id
+        and
+        so.uid = #{uid}
+        order by id
+        limit
+        #{startIndex},#{pageSize}
+    </select>
+    <select id="pageCount" resultType="int">
+        select
+        count(1)
+        from
+        sys_order so ,
+        sys_car sc ,
+        sys_city c1 ,
+        sys_city c2
+        where
+        so.cid = sc.id
+        and
+        so.getid = c1.id
+        and
+        so.backid = c2.id
+        and
+        so.uid = #{uid}
     </select>
 </mapper>

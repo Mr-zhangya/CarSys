@@ -105,12 +105,10 @@
         <div class="selCarMsgCom">
             <div class="Msg">取车地址：{{getcitys}}</div>
         </div>
-
         <div class="selCarMsgCom">
             <div class="Msg">还车地址：{{backcitys}}</div>
         </div>
     </div>
-
 
     <div class="carListTab">
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -118,12 +116,10 @@
                 <li class="layui-this">按租金排序</li>
                 <li>按热度排序</li>
             </ul>
+            <span id="msg"></span>
             <div class="layui-tab-content">
-
-
                 <div class="layui-tab-item layui-show">
                     <!--for循环这段代码-->
-
                     <div class="item clear" id="carlist">
                         <div class="thisPlace clear" id="carli" v-for="site in sites">
                             <div class="itemCarImg left">
@@ -142,19 +138,13 @@
                                 </div>
                                 <div class="carLiBao">5天以上立减 5元/天</div>
                             </div>
-                            <span id="msg"></span>
                             <div class="itemBtn left">
                                 <button class="butt" @click="selectCar(site.id)">预定</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
                 <div class="layui-tab-item">
-
-
                     <div class="item clear" id="carlis">
                         <div class="thisPlace clear" id="carl" v-for="site in cars">
                             <div class="itemCarImg left">
@@ -179,15 +169,11 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-
 
 <script type="text/javascript">
 

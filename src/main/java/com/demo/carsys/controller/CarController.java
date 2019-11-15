@@ -21,11 +21,11 @@ public class CarController {
 
     @RequestMapping("/price")
     public String priceSort(Integer getid,Integer backid) {
-        logger.info("*******************************************************************");
+        logger.info("******************************取车地点 id ****************************");
         logger.info(getid);
         logger.info("*******************************************************************");
         List<Car> list = carService.priceSort(getid);
-        logger.info("*******************************************************************");
+        logger.info("*****************按照 price 对取车地点的所有车辆进行排序***************");
         logger.info(list);
         logger.info("*******************************************************************");
         return JsonUtils.objectToJson(list);
@@ -37,7 +37,7 @@ public class CarController {
         logger.info(backid);
         logger.info("--------------------------------------------------------------------");
         List<Car> list = carService.numberSort(getid);
-        logger.info("-----------------------取车地点的所有车辆------------------------------");
+        logger.info("------------------按照 number 对取车地点的所有车辆进行排序---------------");
         logger.info(list);
         logger.info("--------------------------------------------------------------------");
         return JsonUtils.objectToJson(list);

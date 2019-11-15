@@ -1,6 +1,7 @@
 package com.demo.carsys.controller;
 
 import com.demo.carsys.entity.Order;
+import com.demo.carsys.entity.Page;
 import com.demo.carsys.entity.UserOrder;
 import com.demo.carsys.service.OrderService;
 import com.demo.carsys.utils.JsonUtils;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -59,17 +61,26 @@ public class OrderController {
 
     @RequestMapping("/all")
     @ResponseBody
-    public String all(HttpSession session) {
+    public String all(@RequestParam Map<String,String > conditions, HttpSession session) {
         logger.info("********************userId********************");
         logger.info(session.getAttribute("userId"));
         logger.info("********************************************");
 
-        Integer uid = (Integer) session.getAttribute("userId");
-
+        /*Integer uid = (Integer) session.getAttribute("userId");
         List<UserOrder> userOrder = orderService.allByUid(uid);
+        Integer total = orderService.selectCountByUid(uid);*/
+
+
+        //String userId = (String) session.getAttribute("userId");
+        conditions.put("uid",String.valueOf(session.getAttribute("userId")) );
+        Page page = orderService.page(conditions);
+
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("data",userOrder);
+
+        map.put("data",page);
+
+        //map.put("total",total);
         logger.info("********************订单信息********************");
         logger.info(JsonUtils.objectToJson(map));
         logger.info("********************************************");

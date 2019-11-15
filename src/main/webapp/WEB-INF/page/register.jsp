@@ -111,7 +111,7 @@
                     <h2 data-v-676ecf83="">已有车速递账号？
                         <a data-v-676ecf83=""
                            href="${pageContext.request.contextPath}/user/login">立即登录&nbsp;&gt;&gt;</a>
-                    </h2> <img data-v-676ecf83="" src="https://www.chesudi.com/static/img/register.256808f.jpg">
+                    </h2> <img data-v-676ecf83="" src="https://www.chesudi.com/static/img/login.a7fdfe2.jpg">
                 </div>
             </div>
 
@@ -208,9 +208,11 @@
                 if (data == "success") {
                     $("#result2").text("验证码发送成功！");
                     $("#result2").css("color", "green");
+                    return true;
                 } else {
                     $("#result2").text("该邮箱已被注册！");
                     $("#result2").css("color", "red");
+                    return false;
                 }
             }
         );
@@ -229,9 +231,11 @@
                 if (data == "success") {
                     $("#validateCode").text("验证码正确！");
                     $("#validateCode").css("color", "green");
+                    return true;
                 } else {
                     $("#validateCode").text("验证码错误！请核查后重新输入！");
                     $("#validateCode").css("color", "red");
+                    return false;
                 }
             }
         );
@@ -288,16 +292,20 @@
 
     function validateForm(){
         var data2 = $("form").serialize();
-        $.post(
-            "${pageContext.request.contextPath}/user/register",data2,function (data) {
-                if(data =='success'){
-                    alert("注册成功");
-                    location.href="${pageContext.request.contextPath}/user/login";
-                }else{
-                    alert("注册失败");
+        if(validateMail() && validateTel() && validateMm() && sendValidate() && sendValidate()) {
+            $.post(
+                "${pageContext.request.contextPath}/user/register",data2,function (data) {
+                    if(data =='success'){
+                        alert("注册成功");
+                        location.href="${pageContext.request.contextPath}/user/login";
+                    }else{
+                        alert("注册失败");
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            alert("请填写所有信息后提交！")
+        }
         return false
     }
     /*function validateForm() {

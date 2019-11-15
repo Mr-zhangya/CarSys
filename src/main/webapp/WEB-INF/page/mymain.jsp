@@ -125,16 +125,18 @@
         loadData(1);
     })
     /*  不要忘记分页  ?page="+page    */
-    function loadData(page) {
+    function loadData(pageNum) {
+
         $.ajax({
             type:"get",
-            url:"${pageContext.request.contextPath}/order/all",
+            url:"${pageContext.request.contextPath}/order/all?pageNum="+pageNum+"&pageSize=5",
             dataType:"json",
             async: false,
             success:function(data){
                 //id为0时为父类
-                //totalCount = data.total;
-                vm.obj=data.data;
+                totalCount = data.data.total;
+                alert(data.data.total);
+                vm.obj=data.data.result;
                 alert(data.data);
             },
             error:function () {
