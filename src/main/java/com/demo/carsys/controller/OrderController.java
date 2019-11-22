@@ -70,11 +70,9 @@ public class OrderController {
         List<UserOrder> userOrder = orderService.allByUid(uid);
         Integer total = orderService.selectCountByUid(uid);*/
 
-
         //String userId = (String) session.getAttribute("userId");
         conditions.put("uid",String.valueOf(session.getAttribute("userId")) );
         Page page = orderService.page(conditions);
-
 
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -86,5 +84,16 @@ public class OrderController {
         logger.info("********************************************");
 
         return JsonUtils.objectToJson(map);
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public String deleteById(Integer id) {
+        logger.info("订单id++++++++++++++"+id);
+        int count = orderService.deleteById(id);
+        if (count != 0) {
+            return JsonUtils.objectToJson("success");
+        }
+        return JsonUtils.objectToJson("fail");
     }
 }

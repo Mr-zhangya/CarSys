@@ -18,4 +18,6 @@ public interface OrderService {
     Integer selectCountByUid(Integer uid);
 
     Page page(Map<String, String> conditions);
+
+    int deleteById(Integer id);
 }

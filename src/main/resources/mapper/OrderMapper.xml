@@ -16,6 +16,9 @@
         insert into sys_order (cid,uid,getid,backid,oprice,status)
         values (#{cid},#{uid},#{getid},#{backid},#{oprice},#{status})
     </insert>
+    <delete id="deleteById">
+        delete from sys_order where id = #{id}
+    </delete>
     <select id="allByUid" resultType="com.demo.carsys.entity.UserOrder">
         select
         so.id,

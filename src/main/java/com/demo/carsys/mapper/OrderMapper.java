@@ -18,4 +18,6 @@ public interface OrderMapper {
     List<UserOrder> page(Map<String, Object> conditionTemp);
 
     Integer pageCount(Map<String, Object> conditionTemp);
+
+    int deleteById(Integer id);
 }

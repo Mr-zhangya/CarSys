@@ -38,22 +38,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public Page page(Map<String, String> conditions) {
-
         int pageNum = 1;
         int pageSize = 5;
         if(conditions.containsKey("pageNum")) {
             pageNum = Integer.parseInt(conditions.get("pageNum"));
             pageSize = Integer.parseInt(conditions.get("pageSize"));
         }
-
         Page page = new Page(pageNum,pageSize);
-
         int uid = Integer.parseInt(conditions.get("uid"));
-
         Map<String,Object> conditionTemp = new HashMap<String, Object>();
-
         conditionTemp.putAll(conditions);
-
 
         conditionTemp.put("uid",uid);
         conditionTemp.put("startIndex",page.getStartIndex());
@@ -73,5 +67,9 @@ public class OrderServiceImpl implements OrderService {
 
 
         return page;
+    }
+
+    public int deleteById(Integer id) {
+        return orderMapper.deleteById(id);
     }
 }
