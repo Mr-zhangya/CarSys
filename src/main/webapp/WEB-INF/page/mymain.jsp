@@ -118,7 +118,7 @@
 <script type="text/javascript">
     function deleteById() {
         var id = $("#orderId").val();
-        alert(id);
+        //alert(id);
         $.post(
             "${pageContext.request.contextPath}/order/delete", id, function (data) {
                 if (data == "success") {
@@ -155,9 +155,9 @@
             success: function (data) {
                 //id为0时为父类
                 totalCount = data.data.total;
-                alert(data.data.total);
+                //alert(data.data.total);
                 vm.obj = data.data.result;
-                alert(data.data);
+                //alert(data.data);
 
             },
             error: function () {

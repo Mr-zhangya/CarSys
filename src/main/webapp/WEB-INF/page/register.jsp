@@ -198,7 +198,7 @@
 
     function sendValidate() {
         var data = $("#mail").val();
-        alert(data);
+        //alert(data);
         // 数据传输的是一个json数据,需要拼接
         var sendData3 = {
             email:data
@@ -221,13 +221,13 @@
 
     function validateCode() {
         var data = $("#code").val();
-        alert(data);
+        //alert(data);
         var sendData2 = {
             invitation:data
         };
         $.post(
             "${pageContext.request.contextPath}/register/validateCode", sendData2, function (data) {
-                alert(data);
+                //alert(data);
                 if (data == "success") {
                     $("#validateCode").text("验证码正确！");
                     $("#validateCode").css("color", "green");
@@ -259,7 +259,7 @@
     var result = true;
 
     function validateTel() {
-        alert($("#tel").val());
+        //alert($("#tel").val());
         var name = $("#tel").val();
         var data1 = $("#tel").val();
 
@@ -268,11 +268,11 @@
             tel:data1
         };
 
-        alert(data1);
+        //alert(data1);
         if (name != '') {
             $.post(
                 "${pageContext.request.contextPath}/register/verifyTel", sendData1, function (data) {
-                    alert(data);
+                    //alert(data);
                     if (data == "success") {
                         $("#message").text("该手机号可以用");
                         $("#message").css("color", "green");

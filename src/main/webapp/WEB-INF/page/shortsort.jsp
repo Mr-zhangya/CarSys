@@ -210,9 +210,9 @@
 
 <script type="text/javascript">
     $(function () {
-        alert("1111111111111111")
+        //alert("1111111111111111")
         var getid = window.location.search;
-        alert(getid)
+        //alert(getid);
         $.ajax({
             type: "get",
             url: "${pageContext.request.contextPath}/city/citys" + getid,

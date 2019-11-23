@@ -131,15 +131,15 @@
 <script type="text/javascript">
     $(function () {
         var getid = window.location.search;
-        alert(getid);
+        //alert(getid);
         $.ajax({
             type: "get",
             url: "${pageContext.request.contextPath}/city/citys" + getid,
 
             dataType: "json",
             success: function (city) {
-                alert(city.getCarCity);
-                alert(city.repayCarCity);
+                //alert(city.getCarCity);
+                //alert(city.repayCarCity);
                 var get = city.getCarCity;
                 var back = city.repayCarCity;
                 vm.getcitys = get;
@@ -179,15 +179,15 @@
 
     function submitorder() {
         var id = window.location.search;
-        alert(id);
+        //alert(id);
         var total = $("#total").html();
-        alert(total);
+        //alert(total);
         $.ajax({
             type: "get",
             url: "${pageContext.request.contextPath}/order/add" + id + "&oprice=" + total,
             dataType: "json",
             success: function (data) {
-                alert(data);
+                //alert(data);
                 if (data == "success") {
                     window.location.href = "${pageContext.request.contextPath}/order/mymain";
                 } else {

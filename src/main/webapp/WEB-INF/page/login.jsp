@@ -137,10 +137,10 @@
         $.post(
             "${pageContext.request.contextPath}/user/loginSuccess",data3,function (data) {
                 if(data =='success'){
-                    alert("登录成功");
+                    //alert("登录成功");
                     location.href="${pageContext.request.contextPath}/user/index";
                 }else{
-                    alert("用户名密码错误");
+                    //alert("用户名密码错误");
                     $("#msg").text("用户名密码错误，请检查后输入");
                 }
             }
